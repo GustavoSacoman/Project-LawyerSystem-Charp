@@ -388,7 +388,7 @@ public class AuthService
             {
                 user.Phone = userUpdate.Phone;
             }
-            if (user.Password != null)
+            if (userUpdate.Password != null)
             {
                 var salt = CryptoHelper.GenerateSalt();
                 var hash = CryptoHelper.HashPassword(userUpdate.Password, salt);

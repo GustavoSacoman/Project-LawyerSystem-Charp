@@ -21,11 +21,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
+var frontRoute = builder.Configuration["FRONT_HOST"];
+
+if (string.IsNullOrEmpty(frontRoute))
+{
+    throw new Exception("FRONT_HOST is not configured in the environment variables.");
+}
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontendPolicy", builder =>
     {
-        builder.WithOrigins("http://localhost:3000")
+        builder.WithOrigins(frontRoute)
                .AllowAnyHeader()
                .AllowAnyMethod();
     });
@@ -127,5 +134,3 @@ app.Map("/", () =>
     return Results.Redirect("/swagger");
 });
 app.Run();
-
-
