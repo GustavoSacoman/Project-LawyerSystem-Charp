@@ -9,6 +9,9 @@ RUN npm install
 # Copia o restante do código-fonte
 COPY LawyerSystem.Client ./
 
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 # Build do projeto para produção
 RUN npm run build
 
