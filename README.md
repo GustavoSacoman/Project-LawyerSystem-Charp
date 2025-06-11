@@ -14,7 +14,7 @@ Além disso, o sistema conta com uma **página dedicada aos clientes**, onde ele
 - **Linguagem:** C# (.NET)
 - **Framework:** ASP.NET Core
 - **ORM:** Entity Framework Core
-- **Banco de Dados:** MySQL
+- **Banco de Dados:** Postgres
 - **Documentação:** Swagger
 - **Contêinerização:** Docker
 - **Outras Tecnologias:** REST APIs, JSON
