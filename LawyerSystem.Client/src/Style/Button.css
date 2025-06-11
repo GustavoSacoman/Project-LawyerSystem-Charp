@@ -118,7 +118,7 @@
     
 }
 
-.login-button {
+.login-button-one {
     background-color: #264653;
     color: #FFFFFF;
     padding: 14px 20px;
@@ -131,7 +131,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-    .login-button:hover {
+    .login-button-one:hover {
         background-color: #3a5a70; /* um pouco mais claro */
         transform: translateY(-2px); /* um leve "up" */
     }
