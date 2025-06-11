@@ -12,8 +12,8 @@ using Project_LawyerSystem_CharpApi.Infrastructure.Data;
 namespace Project_LawyerSystem_CharpApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250513013144_PutoffClientId")]
-    partial class PutoffClientId
+    [Migration("20250611024949_newDatabase")]
+    partial class newDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,6 +76,137 @@ namespace Project_LawyerSystem_CharpApi.Migrations
                     b.ToTable("Address", (string)null);
                 });
 
+            modelBuilder.Entity("Project_LawyerSystem_CharpApi.Domain.Models.Case", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("CaseNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CaseNumber"));
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(800)
+                        .HasColumnType("character varying(800)");
+
+                    b.Property<string>("LawyerOAB")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TypeCases")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("LawyerOAB");
+
+                    b.ToTable("Cases", (string)null);
+                });
+
+            modelBuilder.Entity("Project_LawyerSystem_CharpApi.Domain.Models.CaseEvent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CaseId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(800)
+                        .HasColumnType("character varying(800)");
+
+                    b.Property<DateTime>("EventDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("EventStatus")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)");
+
+                    b.Property<DateTime>("UpdateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaseId");
+
+                    b.ToTable("CaseEvents", (string)null);
+                });
+
+            modelBuilder.Entity("Project_LawyerSystem_CharpApi.Domain.Models.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CompanyName")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("company_name");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("MaritalStatus")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("marital_status");
+
+                    b.Property<string>("Profission")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("Representative")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients", (string)null);
+                });
+
             modelBuilder.Entity("Project_LawyerSystem_CharpApi.Domain.Models.Lawyer", b =>
                 {
                     b.Property<string>("OAB")
@@ -106,6 +237,9 @@ namespace Project_LawyerSystem_CharpApi.Migrations
                     b.Property<Guid>("AddressId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("ClientId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -115,7 +249,6 @@ namespace Project_LawyerSystem_CharpApi.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("LawyerOAB")
-                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("character varying(8)");
 
@@ -151,6 +284,9 @@ namespace Project_LawyerSystem_CharpApi.Migrations
                     b.HasIndex("AddressId")
                         .IsUnique();
 
+                    b.HasIndex("ClientId")
+                        .IsUnique();
+
                     b.HasIndex("Email")
                         .IsUnique();
 
@@ -158,6 +294,36 @@ namespace Project_LawyerSystem_CharpApi.Migrations
                         .IsUnique();
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Project_LawyerSystem_CharpApi.Domain.Models.Case", b =>
+                {
+                    b.HasOne("Project_LawyerSystem_CharpApi.Domain.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Project_LawyerSystem_CharpApi.Domain.Models.Lawyer", "Lawyer")
+                        .WithMany()
+                        .HasForeignKey("LawyerOAB")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Lawyer");
+                });
+
+            modelBuilder.Entity("Project_LawyerSystem_CharpApi.Domain.Models.CaseEvent", b =>
+                {
+                    b.HasOne("Project_LawyerSystem_CharpApi.Domain.Models.Case", "Case")
+                        .WithMany("CaseEvents")
+                        .HasForeignKey("CaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Case");
                 });
 
             modelBuilder.Entity("Project_LawyerSystem_CharpApi.Domain.Models.User", b =>
@@ -168,6 +334,11 @@ namespace Project_LawyerSystem_CharpApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Project_LawyerSystem_CharpApi.Domain.Models.Client", "Client")
+                        .WithOne("User")
+                        .HasForeignKey("Project_LawyerSystem_CharpApi.Domain.Models.User", "ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Project_LawyerSystem_CharpApi.Domain.Models.Lawyer", "Lawyer")
                         .WithOne("User")
                         .HasForeignKey("Project_LawyerSystem_CharpApi.Domain.Models.User", "LawyerOAB")
@@ -175,10 +346,22 @@ namespace Project_LawyerSystem_CharpApi.Migrations
 
                     b.Navigation("Address");
 
+                    b.Navigation("Client");
+
                     b.Navigation("Lawyer");
                 });
 
             modelBuilder.Entity("Project_LawyerSystem_CharpApi.Domain.Models.Address", b =>
+                {
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Project_LawyerSystem_CharpApi.Domain.Models.Case", b =>
+                {
+                    b.Navigation("CaseEvents");
+                });
+
+            modelBuilder.Entity("Project_LawyerSystem_CharpApi.Domain.Models.Client", b =>
                 {
                     b.Navigation("User");
                 });
