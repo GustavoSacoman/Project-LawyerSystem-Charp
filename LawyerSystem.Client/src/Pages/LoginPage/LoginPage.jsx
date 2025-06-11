@@ -73,7 +73,7 @@ function LoginPage() {
                      <Button
                         type="submit"
                         text="Login"
-                        className="login-button"
+                        className="login-button-one"
                     />
 
                     <Button
