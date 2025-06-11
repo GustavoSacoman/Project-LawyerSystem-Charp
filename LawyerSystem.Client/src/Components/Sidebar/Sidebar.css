@@ -16,11 +16,22 @@
 
 .sidebar:hover {
         width: 220px; /* expande no hover */
+
 }
+    .sidebar:hover .logo-section {
+        left: 4.5em;
+    }
+
+.logo-section {
+    position: absolute;
+    top: 5em;
+    left: 0;
+    transition: left 0.3s;
+}
+
 
 /* Menu icon (hamburguer) */
 .menu-icon {
-  
     width: 30px;
     height: 25px;
     position: relative;

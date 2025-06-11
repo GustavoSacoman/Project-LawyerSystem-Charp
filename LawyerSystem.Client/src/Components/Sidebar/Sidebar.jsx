@@ -7,6 +7,7 @@ import GavelIcon from '@mui/icons-material/Gavel';
 import PersonIcon from '@mui/icons-material/Person';
 import DescriptionIcon from '@mui/icons-material/Description';
 import HomeIcon from '@mui/icons-material/Home';
+import logoImage from '../../assets/logo.png';
 
 const Sidebar = () => { 
 
@@ -28,7 +29,7 @@ const Sidebar = () => {
                     <div className="bar bottom-bar"></div>
                 </div>
                 <div className="logo-section">
-                    <h1>LOGO</h1>
+                    <img src={logoImage} alt="Logo" className="logo" />
                 </div>
                 
                 <div id="nav-links">
