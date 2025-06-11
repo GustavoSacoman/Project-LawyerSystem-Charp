@@ -9,7 +9,7 @@ using Project_LawyerSystem_CharpApi.Infrastructure.Data;
 using Project_LawyerSystem_CharpApi.Infrastructure.Repositories;
 using System.Text;
 
-DotNetEnv.Env.Load();
+//DotNetEnv.Env.Load();
 // Db Set
 var builder = WebApplication.CreateBuilder(args);
 

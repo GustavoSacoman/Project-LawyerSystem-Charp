@@ -337,7 +337,7 @@ public class AuthService
     /// <returns>A JWT token as a string.</returns>
     private string GenerateToken(User user)
     {
-        DotNetEnv.Env.Load();
+        //DotNetEnv.Env.Load();
 
         var secretKey = _configuration["secretKey"];
 
