@@ -14,7 +14,6 @@ public static class CryptoHelper
     /// <returns>A base64-encoded string representing the generated salt.</returns>
     public static string GenerateSalt()
     {
-        // Generate a 128-bit salt using a secure PRNG
         byte[] salt = new byte[128 / 8];
         using (var rng = RandomNumberGenerator.Create())
         {
