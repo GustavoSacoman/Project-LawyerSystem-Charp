@@ -38,13 +38,15 @@ Além disso, o sistema conta com uma **página dedicada aos clientes**, onde ele
 
 ## 🎥 Vídeo Pitch
 
-*Em breve*  
-_Link para o vídeo de apresentação técnica do projeto._
+[Projeto JURI](https://drive.google.com/file/d/1UOT8qD-tLtqEThBDfxz8OlfFbbzplDVT/view?usp=sharing)
+
 
 ## 🚀 Acesso ao MVP
 
 - 🔗 **API:** [https://lawyersystem-api.onrender.com](https://lawyersystem-api.onrender.com)
 - 🔗 **Front-end:** [https://lawyersystem2.onrender.com](https://lawyersystem2.onrender.com)
+> (Abra os dois links para funcionar)
+  
 
 ## 🧪 Usuários para Teste
 
